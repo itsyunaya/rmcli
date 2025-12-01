@@ -41,8 +41,23 @@ void Registermachine::STORE(int i) {
     ++counter;
 }
 
+void Registermachine::INC() {
+    ++acc;
+    ++counter;
+}
+
+void Registermachine::DEC() {
+    --acc;
+    ++counter;
+}
+
 void Registermachine::ADD(int i) {
     acc += registers[i];
+    ++counter;
+}
+
+void Registermachine::ADDI(int i) {
+    acc += i;
     ++counter;
 }
 
@@ -51,6 +66,89 @@ void Registermachine::SUB(int i) {
     ++counter;
 }
 
+void Registermachine::SUBI(int i) {
+    acc -= i;
+    ++counter;
+}
+
+void Registermachine::MUL(int i) {
+    acc *= registers[i];
+    ++counter;
+}
+
+void Registermachine::MULI(int i) {
+    acc *= i;
+    ++counter;
+}
+
+void Registermachine::DIV(int i) {
+    acc /= registers[i];
+    ++counter;
+}
+
+void Registermachine::DIVI(int i) {
+    acc /= i;
+    ++counter;
+}
+
+void Registermachine::MOD(int i) {
+    acc %= registers[i];
+    ++counter;
+}
+
+void Registermachine::JMP(int i) {
+    counter = i - 1;
+}
+
+void Registermachine::JEQ(int i) {
+    if (acc == 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+void Registermachine::JNE(int i) {
+    if (acc != 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+void Registermachine::JGE(int i) {
+    if (acc >= 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+void Registermachine::JGT(int i) {
+    if (acc > 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+void Registermachine::JLE(int i) {
+    if (acc <= 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+void Registermachine::JLT(int i) {
+    if (acc < 0) {
+        counter = i - 1;
+    } else {
+        ++counter;
+    }
+}
+
+// TODO: make decent
 void Registermachine::END() {
     for (int v: registers) {
         if (v != 0) {

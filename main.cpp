@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
     //     if (rm.getCounter() == 5) {rm.END(); state = 0;}
     // }
 
+    // TODO: this is slop, fix the headers so i can call functions normally
+
     int option;
     constexpr struct option long_options[] = {
         {"help", no_argument, nullptr, 'h'},
