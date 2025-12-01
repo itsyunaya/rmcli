@@ -2,6 +2,8 @@
 #include <getopt.h>
 #include <iostream>
 
+#include "modes/InteractiveMode.h"
+
 int main(int argc, char *argv[]) {
     // Registermachine rm;
     // int state {1};
@@ -24,12 +26,13 @@ int main(int argc, char *argv[]) {
     while ((option = getopt_long(argc, argv, "hif:", long_options, nullptr)) != -1) {
         switch (option) {
             case 'h': {
-                std::cout << "help\n";
+                printf("MEEP MAP\n");
                 break;
             }
 
             case 'i': {
                 std::cout << "interactive\n";
+                InteractiveMode::run();
                 break;
             }
 
