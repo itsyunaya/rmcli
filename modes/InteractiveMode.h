@@ -5,13 +5,6 @@
 #ifndef RMCLI_INTERACTIVEMODE_H
 #define RMCLI_INTERACTIVEMODE_H
 
-
-class InteractiveMode {
-    public:
-    static int run();
-
-    InteractiveMode();
-};
-
+int interactive();
 
 #endif //RMCLI_INTERACTIVEMODE_H

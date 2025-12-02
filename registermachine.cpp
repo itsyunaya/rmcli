@@ -10,6 +10,10 @@ Registermachine::Registermachine()
     : registers(50, 0), acc(0), counter(1) {
 }
 
+void matchFunctions(const std::string& func, const int val) {
+    std::cout << func << " " << val << std::endl;
+}
+
 int Registermachine::getAcc() const {
     return acc;
 }
@@ -147,6 +151,30 @@ void Registermachine::JLT(int i) {
         ++counter;
     }
 }
+
+enum functions {
+    DLOAD,
+    LOAD,
+    STORE,
+    INC,
+    DEC,
+    ADD,
+    ADDI,
+    SUB,
+    SUBI,
+    MUL,
+    MULI,
+    DIV,
+    DIVI,
+    MOD,
+    JMP,
+    JEQ,
+    JNE,
+    JGE,
+    JGT,
+    JLE,
+    JLT
+};
 
 // TODO: make decent
 void Registermachine::END() {

@@ -8,7 +8,11 @@ add_executable(rmcli main.cpp
         registermachine.h
         modes/InteractiveMode.cpp
         modes/InteractiveMode.h
-        modes/InteractiveMode.cpp)
+        modes/InteractiveMode.cpp
+        modes/Fileinput.cpp
+        modes/Fileinput.h
+        util/Util.cpp
+        util/Util.h)
 
 # include libs
 target_link_libraries(rmcli PRIVATE readline ncurses)

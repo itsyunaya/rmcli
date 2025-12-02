@@ -12,6 +12,8 @@ class Registermachine {
 public:
     Registermachine();
 
+    void matchFunctions(std::string func, int val);
+
     [[nodiscard]] int getAcc() const;
     [[nodiscard]] int getCounter() const;
 

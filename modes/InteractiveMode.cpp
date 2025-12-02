@@ -7,10 +7,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int InteractiveMode::run() {
+#include "../registermachine.h"
+#include "../util/Util.h"
+
+
+int interactive() {
+    Registermachine rm;
+
+    // while true is terrible, eventually replace with "while reading line"
     while (true) {
         char* raw = readline("rmcli> ");
 
@@ -24,12 +32,31 @@ int InteractiveMode::run() {
 
         // exit when typing quit
         // TODO: add better exiting, like outputting all the registers
-        if (line == "quit") break;
+        if (line == "quit" || line == "exit") break;
 
-        
+        std::vector<std::string> args = splitString(line, ' ');
+        if (args.size() > 2) {
+
+            fprintf(stderr, "Too many arguments\n");
+            args.clear();
+        }
+
+        try {
+            const int val = std::stoi(args[1]);
+            rm.matchFunctions(args[0], val);
+        } catch (const std::exception& e) {
+            // add actual error handling
+            std::cout << e.what() << std::endl;
+        }
+
+        for (const std::string& i : args) {
+            // debug
+            std::cout << i << std::endl;
+
+        }
+
+
     }
 
     return 0;
 }
-
-InteractiveMode::InteractiveMode() = default;

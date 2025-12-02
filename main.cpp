@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
             case 'i': {
                 std::cout << "interactive\n";
-                InteractiveMode::run();
+                interactive();
                 break;
             }
 
