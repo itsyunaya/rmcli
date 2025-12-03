@@ -6,13 +6,12 @@
 #ifndef REGISTERMACHINE_H
 #define REGISTERMACHINE_H
 
+#include <string>
 #include <vector>
 
 class Registermachine {
 public:
     Registermachine();
-
-    void matchFunctions(std::string func, int val);
 
     [[nodiscard]] int getAcc() const;
     [[nodiscard]] int getCounter() const;
@@ -41,6 +40,8 @@ public:
     void JLE(int i);
     void JLT(int i);
     void END();
+
+    static void matchFunctions(const std::string& func, int val);
 
 private:
     std::vector<int> registers;

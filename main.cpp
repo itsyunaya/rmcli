@@ -4,6 +4,8 @@
 
 #include "modes/InteractiveMode.h"
 
+Registermachine rm;
+
 int main(int argc, char *argv[]) {
     // Registermachine rm;
     // int state {1};

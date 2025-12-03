@@ -14,10 +14,9 @@
 #include "../registermachine.h"
 #include "../util/Util.h"
 
+extern Registermachine rm;
 
 int interactive() {
-    Registermachine rm;
-
     // while true is terrible, eventually replace with "while reading line"
     while (true) {
         char* raw = readline("rmcli> ");
@@ -41,6 +40,8 @@ int interactive() {
             args.clear();
         }
 
+        // TODO: calling functions with just one parameter crashes this,
+        //  because it always expects two, fix this
         try {
             const int val = std::stoi(args[1]);
             rm.matchFunctions(args[0], val);
@@ -48,14 +49,6 @@ int interactive() {
             // add actual error handling
             std::cout << e.what() << std::endl;
         }
-
-        for (const std::string& i : args) {
-            // debug
-            std::cout << i << std::endl;
-
-        }
-
-
     }
 
     return 0;

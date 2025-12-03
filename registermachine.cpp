@@ -4,14 +4,16 @@
 
 // registermachine.cpp
 #include "registermachine.h"
+
+#include <functional>
 #include <iostream>
+#include <unordered_map>
+#include <string>
+
+extern Registermachine rm;
 
 Registermachine::Registermachine()
     : registers(50, 0), acc(0), counter(1) {
-}
-
-void matchFunctions(const std::string& func, const int val) {
-    std::cout << func << " " << val << std::endl;
 }
 
 int Registermachine::getAcc() const {
@@ -152,30 +154,6 @@ void Registermachine::JLT(int i) {
     }
 }
 
-enum functions {
-    DLOAD,
-    LOAD,
-    STORE,
-    INC,
-    DEC,
-    ADD,
-    ADDI,
-    SUB,
-    SUBI,
-    MUL,
-    MULI,
-    DIV,
-    DIVI,
-    MOD,
-    JMP,
-    JEQ,
-    JNE,
-    JGE,
-    JGT,
-    JLE,
-    JLT
-};
-
 // TODO: make decent
 void Registermachine::END() {
     for (int v: registers) {
@@ -185,4 +163,37 @@ void Registermachine::END() {
     }
     std::cout << acc << '\n';
     resetRegistermachine();
+}
+
+// oh great heavens
+std::unordered_map<std::string, std::function<void(int)>> functionMap = {
+    {"DLOAD", [](const int x){ rm.DLOAD(x); }},
+    {"LOAD", [](const int x){ rm.LOAD(x); }},
+    {"STORE", [](const int x){ rm.STORE(x); }},
+    // since the map *only* accepts goobers with ints as their params,
+    // i have to input one here and just ignore it
+    {"INC", [](int){ rm.INC(); }},
+    {"DEC", [](int){ rm.DEC(); }},
+    {"ADD", [](const int x){ rm.ADD(x); }},
+    {"ADDI", [](const int x){ rm.ADDI(x); }},
+    {"SUB", [](const int x){ rm.SUB(x); }},
+    {"SUBI", [](const int x){ rm.SUBI(x); }},
+    {"MUL", [](const int x){ rm.MUL(x); }},
+    {"MULI", [](const int x){ rm.MULI(x); }},
+    {"DIV", [](const int x){ rm.DIV(x); }},
+    {"DIVI", [](const int x){ rm.DIVI(x); }},
+    {"MOD", [](const int x){ rm.JMP(x); }},
+    {"JMP", [](const int x){ rm.JMP(x); }},
+    {"JEQ", [](const int x){ rm.JEQ(x); }},
+    {"JNE", [](const int x){ rm.JNE(x); }},
+    {"JGE", [](const int x){ rm.JGE(x); }},
+    {"JGT", [](const int x){ rm.JGT(x); }},
+    {"JLE", [](const int x){ rm.JLE(x); }},
+    {"JLT", [](const int x){ rm.JLT(x); }},
+    {"END", [](int){ rm.END(); }},
+};
+
+
+void Registermachine::matchFunctions(const std::string& func, const int val) {
+    functionMap.at(func)(val);
 }
