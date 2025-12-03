@@ -193,7 +193,6 @@ std::unordered_map<std::string, std::function<void(int)>> functionMap = {
     {"END", [](int){ rm.END(); }},
 };
 
-
 void Registermachine::matchFunctions(const std::string& func, const int val) {
     functionMap.at(func)(val);
 }

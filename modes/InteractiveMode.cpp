@@ -10,6 +10,7 @@
 #include <sstream>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <tabulate/latex_exporter.hpp>
 
 #include "../registermachine.h"
 #include "../util/Util.h"

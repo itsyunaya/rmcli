@@ -7,4 +7,6 @@
 
 std::vector<std::string> splitString(const std::string& input, char delimiter);
 
+int setupTable();
+
 #endif //RMCLI_UTIL_H
