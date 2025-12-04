@@ -6,6 +6,7 @@
 #include <vector>
 #include "Util.h"
 
+#include <iostream>
 #include <tabulate/table.hpp>
 
 std::vector<std::string> splitString(const std::string& input, const char delimiter) {
