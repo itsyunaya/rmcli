@@ -13,7 +13,7 @@
 extern Registermachine rm;
 
 Registermachine::Registermachine()
-    : registers(50, 0), acc(0), counter(1) {
+    : registers(50, 0), acc(0), counter(0) {
 }
 
 int Registermachine::getAcc() const {
@@ -34,83 +34,83 @@ int Registermachine::resetRegistermachine() {
 
 void Registermachine::DLOAD(int i) {
     acc = i;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::LOAD(int i) {
     acc = registers[i];
-    ++counter;
+    counter++;
 }
 
 void Registermachine::STORE(int i) {
     registers[i] = acc;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::INC() {
     ++acc;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::DEC() {
     --acc;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::ADD(int i) {
     acc += registers[i];
-    ++counter;
+    counter++;
 }
 
 void Registermachine::ADDI(int i) {
     acc += i;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::SUB(int i) {
     acc -= registers[i];
-    ++counter;
+    counter++;
 }
 
 void Registermachine::SUBI(int i) {
     acc -= i;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::MUL(int i) {
     acc *= registers[i];
-    ++counter;
+    counter++;
 }
 
 void Registermachine::MULI(int i) {
     acc *= i;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::DIV(int i) {
     acc /= registers[i];
-    ++counter;
+    counter++;
 }
 
 void Registermachine::DIVI(int i) {
     acc /= i;
-    ++counter;
+    counter++;
 }
 
 void Registermachine::MOD(int i) {
-    acc %= registers[i];
-    ++counter;
+    acc = acc % registers[i];
+    counter++;
 }
 
 void Registermachine::JMP(int i) {
-    counter = i - 1;
+    counter = i;
 }
 
 void Registermachine::JEQ(int i) {
     if (acc == 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -118,7 +118,7 @@ void Registermachine::JNE(int i) {
     if (acc != 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -126,7 +126,7 @@ void Registermachine::JGE(int i) {
     if (acc >= 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -134,7 +134,7 @@ void Registermachine::JGT(int i) {
     if (acc > 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -142,7 +142,7 @@ void Registermachine::JLE(int i) {
     if (acc <= 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -150,7 +150,7 @@ void Registermachine::JLT(int i) {
     if (acc < 0) {
         counter = i - 1;
     } else {
-        ++counter;
+        counter++;
     }
 }
 
@@ -182,7 +182,7 @@ std::unordered_map<std::string, std::function<void(int)>> functionMap = {
     {"MULI", [](const int x){ rm.MULI(x); }},
     {"DIV", [](const int x){ rm.DIV(x); }},
     {"DIVI", [](const int x){ rm.DIVI(x); }},
-    {"MOD", [](const int x){ rm.JMP(x); }},
+    {"MOD", [](const int x){ rm.MOD(x); }},
     {"JMP", [](const int x){ rm.JMP(x); }},
     {"JEQ", [](const int x){ rm.JEQ(x); }},
     {"JNE", [](const int x){ rm.JNE(x); }},
