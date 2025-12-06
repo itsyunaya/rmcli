@@ -5,11 +5,11 @@
 #include "InteractiveMode.h"
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <readline/readline.h>
 #include <readline/history.h>
+#include <readline/readline.h>
 
 #include "../registermachine.h"
 #include "../util/Util.h"
@@ -17,7 +17,7 @@
 extern Registermachine rm;
 
 int interactive() {
-    // while true is terrible, eventually replace with "while reading line"
+    // TODO: while true is terrible, eventually replace with "while reading line"
     while (true) {
         char* raw = readline("rmcli> ");
 
@@ -25,6 +25,8 @@ int interactive() {
         if (!raw) break;
 
         std::string line(raw);
+
+        if (line.empty()) continue;
 
         if (!line.empty()) add_history(raw);
         free(raw);
@@ -38,15 +40,19 @@ int interactive() {
             args.clear();
         }
 
+        int val{};
+
         // TODO: move input handling to a separate function maybe?
         //  so i dont have to write it TWICE
-        try {
-            const int val = std::stoi(args[1]);
-            rm.matchFunctions(args[0], val);
-        } catch (const std::exception& e) {
-            // add actual error handling
-            std::cout << e.what() << std::endl;
+        if (args.size() > 1) {
+            try {
+                // TODO: if non-integer is entered stoi will silently fail and the function returns -1
+                //  this is ok for instructions without second arg, but can cause weird behaviour otherwise
+                val = std::stoi(args[1]);
+            } catch (const std::invalid_argument& e) {} // catch by doing nothing here as to make commenting instructions easier
         }
+
+        Registermachine::matchFunctions(args[0], val);
     }
 
     return 0;

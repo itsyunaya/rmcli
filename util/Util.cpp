@@ -2,11 +2,11 @@
 // Created by ashley on 02.12.25.
 //
 
-#include <sstream>
-#include <vector>
 #include "Util.h"
 
 #include <iostream>
+#include <sstream>
+#include <vector>
 #include <tabulate/table.hpp>
 
 std::vector<std::string> splitString(const std::string& input, const char delimiter) {

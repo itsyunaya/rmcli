@@ -1,7 +1,8 @@
-#include "registermachine.h"
+#include <cstring>
 #include <getopt.h>
 #include <iostream>
 
+#include "registermachine.h"
 #include "modes/Fileinput.h"
 #include "modes/InteractiveMode.h"
 #include "util/Util.h"
@@ -9,18 +10,16 @@
 Registermachine rm;
 
 int main(const int argc, char *argv[]) {
-    // TODO: this is slop, fix the headers so i can call functions normally
-
     int option;
     constexpr struct option long_options[] = {
         {"help", no_argument, nullptr, 'h'},
         {"interactive", no_argument, nullptr, 'i'},
-        {"file", no_argument, nullptr, 'f'},
+        {"file", required_argument, nullptr, 'f'},
         {"debug", no_argument, nullptr, 'd'},
         {nullptr, 0, nullptr, 0}
     };
 
-    while ((option = getopt_long(argc, argv, "hifd:", long_options, nullptr)) != -1) {
+    while ((option = getopt_long(argc, argv, "hif:d", long_options, nullptr)) != -1) {
         switch (option) {
             case 'h': {
                 printf("MEEP MAP\n");
@@ -34,7 +33,11 @@ int main(const int argc, char *argv[]) {
             }
 
             case 'f': {
-                fileinput("input.txt");
+                if (optarg == nullptr || std::strlen(optarg) == 0) {
+                    fprintf(stderr, "Error: -f/--file requires a non-empty filepath\n");
+                    return 1;
+                }
+                fileinput(optarg);
                 break;
             }
 
