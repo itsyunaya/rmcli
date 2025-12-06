@@ -32,7 +32,6 @@ int setupTable() {
         .corner("+")
         .width(11);
 
-
     rm_outputs.add_row({"AC", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"});
     rm_outputs.add_row({"undefined", "undefined", "undefined",
         "undefined", "undefined", "undefined",

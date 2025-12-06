@@ -41,6 +41,7 @@ int main(const int argc, char *argv[]) {
 
             case 'd': {
                 setupTable();
+                break;
             }
 
             default: {

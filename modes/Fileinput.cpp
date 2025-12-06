@@ -20,29 +20,23 @@ int fileinput(const std::string& filepath) {
         return 1;
     }
 
+    // TODO: any actual cpp dev would KILL me for this entire thing, eventually find a better implementation
+
     std::string s;
-    std::size_t lineNum = 0;
-
+    std::vector<std::string> lines;
     while (std::getline(f, s)) {
-        std::vector<std::string> args = splitString(s, ' ');
-        if (args.size() < 2) {
-            fprintf(stderr, "Malformed line %zu: '%s'\n", lineNum, s.c_str());
-            ++lineNum;
-            continue;
-        }
+        lines.push_back(s);
+    }
 
-        // Check the counter at the moment we read this line.
-        if (static_cast<std::size_t>(rm.getCounter()) == lineNum) {
-            try {
+    // TODO: infinite loop :(
+    while (true) {
+        for (int i = 0; i < lines.size(); i++) {
+            if (i == rm.getCounter()) {
+                std::vector<std::string> args = splitString(lines[i], ' ');
                 int val = std::stoi(args[1]);
                 rm.matchFunctions(args[0], val);
-            } catch (const std::exception& e) {
-                fprintf(stderr, "Invalid integer on line %zu: %s\n", lineNum, e.what());
-                return 1;
             }
         }
-
-        ++lineNum;
     }
 
     return 0;
