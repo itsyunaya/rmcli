@@ -49,7 +49,7 @@ int interactive() {
                 // TODO: if non-integer is entered stoi will silently fail and the function returns -1
                 //  this is ok for instructions without second arg, but can cause weird behaviour otherwise
                 val = std::stoi(args[1]);
-            } catch (const std::invalid_argument& e) {} // catch by doing nothing here as to make commenting instructions easier
+            } catch (const std::invalid_argument&) {} // catch by doing nothing here as to make commenting instructions easier
         }
 
         Registermachine::matchFunctions(args[0], val);

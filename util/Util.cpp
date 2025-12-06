@@ -16,7 +16,6 @@ std::vector<std::string> splitString(const std::string& input, const char delimi
     while (getline(stream, token, delimiter)) {
         tokens.push_back(token);
     }
-
     return tokens;
 }
 

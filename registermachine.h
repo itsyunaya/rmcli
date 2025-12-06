@@ -19,7 +19,6 @@ public:
     [[nodiscard]] int getCounter() const;
     void incCounter();
 
-    // Operations
     int resetRegistermachine();
     void DLOAD(int i);
     void LOAD(int i);

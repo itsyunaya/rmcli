@@ -4,6 +4,8 @@
 
 #ifndef RMCLI_UTIL_H
 #define RMCLI_UTIL_H
+#include <string>
+#include <vector>
 
 std::vector<std::string> splitString(const std::string& input, char delimiter);
 

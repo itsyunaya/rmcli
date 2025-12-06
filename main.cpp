@@ -11,6 +11,7 @@ Registermachine rm;
 
 int main(const int argc, char *argv[]) {
     int option;
+
     constexpr struct option long_options[] = {
         {"help", no_argument, nullptr, 'h'},
         {"interactive", no_argument, nullptr, 'i'},
@@ -25,9 +26,8 @@ int main(const int argc, char *argv[]) {
                 printf("MEEP MAP\n");
                 break;
             }
-
+            // TODO: make i and f mutually exclusive somehow
             case 'i': {
-                std::cout << "interactive\n";
                 interactive();
                 break;
             }
@@ -37,6 +37,7 @@ int main(const int argc, char *argv[]) {
                     fprintf(stderr, "Error: -f/--file requires a non-empty filepath\n");
                     return 1;
                 }
+
                 fileinput(optarg);
                 break;
             }

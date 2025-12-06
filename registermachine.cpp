@@ -35,17 +35,17 @@ int Registermachine::resetRegistermachine() {
     return 1;
 }
 
-void Registermachine::DLOAD(int i) {
+void Registermachine::DLOAD(const int i) {
     acc = i;
     counter++;
 }
 
-void Registermachine::LOAD(int i) {
+void Registermachine::LOAD(const int i) {
     acc = registers[i];
     counter++;
 }
 
-void Registermachine::STORE(int i) {
+void Registermachine::STORE(const int i) {
     registers[i] = acc;
     counter++;
 }
@@ -60,56 +60,56 @@ void Registermachine::DEC() {
     counter++;
 }
 
-void Registermachine::ADD(int i) {
+void Registermachine::ADD(const int i) {
     acc += registers[i];
     counter++;
 }
 
-void Registermachine::ADDI(int i) {
+void Registermachine::ADDI(const int i) {
     acc += i;
     counter++;
 }
 
-void Registermachine::SUB(int i) {
+void Registermachine::SUB(const int i) {
     acc -= registers[i];
     counter++;
 }
 
-void Registermachine::SUBI(int i) {
+void Registermachine::SUBI(const int i) {
     acc -= i;
     counter++;
 }
 
-void Registermachine::MUL(int i) {
+void Registermachine::MUL(const int i) {
     acc *= registers[i];
     counter++;
 }
 
-void Registermachine::MULI(int i) {
+void Registermachine::MULI(const int i) {
     acc *= i;
     counter++;
 }
 
-void Registermachine::DIV(int i) {
+void Registermachine::DIV(const int i) {
     acc /= registers[i];
     counter++;
 }
 
-void Registermachine::DIVI(int i) {
+void Registermachine::DIVI(const int i) {
     acc /= i;
     counter++;
 }
 
-void Registermachine::MOD(int i) {
+void Registermachine::MOD(const int i) {
     acc = acc % registers[i];
     counter++;
 }
 
-void Registermachine::JMP(int i) {
+void Registermachine::JMP(const int i) {
     counter = i - 1;
 }
 
-void Registermachine::JEQ(int i) {
+void Registermachine::JEQ(const int i) {
     if (acc == 0) {
         counter = i - 1;
     } else {
@@ -117,7 +117,7 @@ void Registermachine::JEQ(int i) {
     }
 }
 
-void Registermachine::JNE(int i) {
+void Registermachine::JNE(const int i) {
     if (acc != 0) {
         counter = i - 1;
     } else {
@@ -125,7 +125,7 @@ void Registermachine::JNE(int i) {
     }
 }
 
-void Registermachine::JGE(int i) {
+void Registermachine::JGE(const int i) {
     if (acc >= 0) {
         counter = i - 1;
     } else {
@@ -133,7 +133,7 @@ void Registermachine::JGE(int i) {
     }
 }
 
-void Registermachine::JGT(int i) {
+void Registermachine::JGT(const int i) {
     if (acc > 0) {
         counter = i - 1;
     } else {
@@ -141,7 +141,7 @@ void Registermachine::JGT(int i) {
     }
 }
 
-void Registermachine::JLE(int i) {
+void Registermachine::JLE(const int i) {
     if (acc <= 0) {
         counter = i - 1;
     } else {
@@ -149,7 +149,7 @@ void Registermachine::JLE(int i) {
     }
 }
 
-void Registermachine::JLT(int i) {
+void Registermachine::JLT(const int i) {
     if (acc < 0) {
         counter = i - 1;
     } else {
