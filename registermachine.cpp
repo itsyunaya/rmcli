@@ -24,7 +24,10 @@ int Registermachine::getCounter() const {
     return counter;
 }
 
-// Operations
+void Registermachine::incCounter() {
+    counter++;
+}
+
 int Registermachine::resetRegistermachine() {
     acc = 0;
     counter = 1;
@@ -103,7 +106,7 @@ void Registermachine::MOD(int i) {
 }
 
 void Registermachine::JMP(int i) {
-    counter = i;
+    counter = i - 1;
 }
 
 void Registermachine::JEQ(int i) {
@@ -154,8 +157,9 @@ void Registermachine::JLT(int i) {
     }
 }
 
-// TODO: make decent
+// TODO: implement register output via tabulate lib instead of just printing numbers
 void Registermachine::END() {
+    running = false;
     for (int v: registers) {
         if (v != 0) {
             std::cout << v << '\n';

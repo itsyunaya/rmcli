@@ -9,12 +9,15 @@
 #include <string>
 #include <vector>
 
+inline bool running;
+
 class Registermachine {
 public:
     Registermachine();
 
     [[nodiscard]] int getAcc() const;
     [[nodiscard]] int getCounter() const;
+    void incCounter();
 
     // Operations
     int resetRegistermachine();

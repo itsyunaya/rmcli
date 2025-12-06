@@ -29,19 +29,17 @@ int interactive() {
         if (!line.empty()) add_history(raw);
         free(raw);
 
-        // exit when typing quit
-        // TODO: add better exiting, like outputting all the registers
+        // TODO: add better exiting, add output registers command
         if (line == "quit" || line == "exit") break;
 
         std::vector<std::string> args = splitString(line, ' ');
         if (args.size() > 2) {
-
             fprintf(stderr, "Too many arguments\n");
             args.clear();
         }
 
-        // TODO: calling functions with just one parameter crashes this,
-        //  because it always expects two, fix this
+        // TODO: move input handling to a separate function maybe?
+        //  so i dont have to write it TWICE
         try {
             const int val = std::stoi(args[1]);
             rm.matchFunctions(args[0], val);

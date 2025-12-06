@@ -34,7 +34,6 @@ int main(const int argc, char *argv[]) {
             }
 
             case 'f': {
-                std::cout << "file\n";
                 fileinput("input.txt");
                 break;
             }

@@ -5,7 +5,6 @@
 #include "Fileinput.h"
 
 #include <fstream>
-#include <iosfwd>
 #include <vector>
 
 #include "../registermachine.h"
@@ -14,13 +13,12 @@
 extern Registermachine rm;
 
 int fileinput(const std::string& filepath) {
+    running = true;
     std::ifstream f(filepath);
     if (!f.is_open()) {
         fprintf(stderr, "Could not open file '%s'\n", filepath.c_str());
         return 1;
     }
-
-    // TODO: any actual cpp dev would KILL me for this entire thing, eventually find a better implementation
 
     std::string s;
     std::vector<std::string> lines;
@@ -28,15 +26,27 @@ int fileinput(const std::string& filepath) {
         lines.push_back(s);
     }
 
-    // TODO: infinite loop :(
-    while (true) {
-        for (int i = 0; i < lines.size(); i++) {
-            if (i == rm.getCounter()) {
-                std::vector<std::string> args = splitString(lines[i], ' ');
-                int val = std::stoi(args[1]);
-                rm.matchFunctions(args[0], val);
-            }
+    while (running) {
+        std::vector<std::string> args = splitString(lines[rm.getCounter()], ' ');
+        int val = -1;
+
+        // empty line handling
+        // TODO: think about how to handle empty lines: if allowed will be considered as instruction
+        if (args.empty()) {
+            rm.incCounter();
+            fprintf(stderr, "Empty line read: Will be treated as instruction.\n");
+            continue;
         }
+
+        if (args.size() > 1) {
+            try {
+                // TODO: if non-integer is entered stoi will silently fail and the function returns -1
+                //  this is ok for instructions without second arg, but can cause weird behaviour otherwise
+                val = std::stoi(args[1]);
+            } catch (const std::invalid_argument& e) {} // catch by doing nothing here as to make commenting instructions easier
+        }
+
+        Registermachine::matchFunctions(args[0], val);
     }
 
     return 0;
