@@ -217,6 +217,7 @@ void Registermachine::matchFunctions(const std::string& func, const int val) {
     try {
         functionMap.at(func)(val);
     } catch (...) {
-        std::cerr << "Unknown function '" << func << "'" << std::endl;
+        rm.incCounter();
+        std::cerr << rm.getCounter() << ": Unknown function '" << func << "', ignoring." << std::endl;
     }
 }

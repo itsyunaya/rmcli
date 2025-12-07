@@ -41,7 +41,7 @@ int interactive() {
             continue;
         }
 
-        int val {-1};
+        int val {};
 
         if (args.size() > 1) {
             try {

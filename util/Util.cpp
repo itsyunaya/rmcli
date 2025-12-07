@@ -4,7 +4,6 @@
 
 #include "Util.h"
 
-#include <iostream>
 #include <sstream>
 #include <vector>
 #include <tabulate/table.hpp>

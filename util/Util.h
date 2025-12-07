@@ -4,6 +4,7 @@
 
 #ifndef RMCLI_UTIL_H
 #define RMCLI_UTIL_H
+
 #include <string>
 #include <vector>
 #include <tabulate/table.hpp>

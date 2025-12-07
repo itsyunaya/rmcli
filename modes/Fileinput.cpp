@@ -28,22 +28,23 @@ int fileinput(const std::string& filepath) {
 
     while (running) {
         std::vector<std::string> args = splitString(lines[rm.getCounter()], ' ');
-        int val {-1};
+        int val {};
 
         // empty line handling
-        // TODO: think about how to handle empty lines: if allowed will be considered as instruction
         if (args.empty()) {
             rm.incCounter();
-            std::cerr << "Empty line read: Will be treated as instruction." << std::endl;
+            std::cerr << rm.getCounter() << ": Empty line read, will be treated as instruction." << std::endl;
             continue;
         }
 
         if (args.size() > 1) {
             try {
-                // TODO: if non-integer is entered stoi will silently fail and the function returns -1
-                //  this is ok for instructions without second arg, but can cause weird behaviour otherwise
                 val = std::stoi(args[1]);
-            } catch (const std::invalid_argument&) {} // catch by doing nothing here as to make commenting instructions easier
+            } catch (const std::invalid_argument&) {
+                rm.incCounter();
+                std::cerr << rm.getCounter() << ": Invalid argument entered '" << args[1] << "', ignoring instruction." << std::endl;
+                continue;
+            }
         }
 
         Registermachine::matchFunctions(args[0], val);
