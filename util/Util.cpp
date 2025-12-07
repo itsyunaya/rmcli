@@ -20,8 +20,6 @@ std::vector<std::string> splitString(const std::string& input, const char delimi
 }
 
 int setupTable() {
-    tabulate::Table rm_outputs;
-
     rm_outputs.format()
         .font_style({tabulate::FontStyle::bold})
         .border_top("─")
@@ -32,10 +30,10 @@ int setupTable() {
         .width(11);
 
     rm_outputs.add_row({"AC", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"});
-    rm_outputs.add_row({"undefined", "undefined", "undefined",
-        "undefined", "undefined", "undefined",
-        "undefined", "undefined", "undefined",
-        "undefined", "undefined"});
-    rm_outputs.print(std::cout);
+    // rm_outputs.add_row({"undefined", "undefined", "undefined",
+    //     "undefined", "undefined", "undefined",
+    //     "undefined", "undefined", "undefined",
+    //     "undefined", "undefined"});
+    rm_outputs.add_row({});
     return 0;
 }

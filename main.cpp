@@ -27,6 +27,8 @@ int main(const int argc, char *argv[]) {
         return 0;
     }
 
+    setupTable();
+
     constexpr struct option long_options[] = {
         {"help", no_argument, nullptr, 'h'},
         {"interactive", no_argument, nullptr, 'i'},

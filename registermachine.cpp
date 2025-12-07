@@ -9,8 +9,10 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <tabulate/table.hpp>
 
 extern Registermachine rm;
+extern tabulate::Table rm_outputs;
 
 Registermachine::Registermachine()
     : registers(50, 0), acc(0), counter(0) {
@@ -157,15 +159,22 @@ void Registermachine::JLT(const int i) {
     }
 }
 
-// TODO: implement register output via tabulate lib instead of just printing numbers
 void Registermachine::END() {
     running = false;
-    for (int v: registers) {
-        if (v != 0) {
-            std::cout << v << '\n';
+
+    rm_outputs[1].cell(0).set_text(std::to_string(acc));
+
+    for (int i = 1; i <= 10; i++) {
+        if (registers[i] != 0) {
+            std::string str = std::to_string(registers[i]);
+            rm_outputs[1].cell(i).set_text(str);
+        } else {
+            rm_outputs[1].cell(i).set_text("undefined");
         }
     }
-    std::cout << acc << '\n';
+
+    std::cout << rm_outputs << std::endl;
+
     resetRegistermachine();
 }
 

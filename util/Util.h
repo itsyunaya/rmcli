@@ -6,6 +6,9 @@
 #define RMCLI_UTIL_H
 #include <string>
 #include <vector>
+#include <tabulate/table.hpp>
+
+inline tabulate::Table rm_outputs;
 
 std::vector<std::string> splitString(const std::string& input, char delimiter);
 
