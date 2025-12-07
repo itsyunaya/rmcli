@@ -50,5 +50,6 @@ int fileinput(const std::string& filepath) {
         Registermachine::matchFunctions(args[0], val);
     }
 
+    f.close();
     return 0;
 }
