@@ -16,7 +16,7 @@ int fileinput(const std::string& filepath) {
     running = true;
     std::ifstream f(filepath);
     if (!f.is_open()) {
-        fprintf(stderr, "Could not open file '%s'\n", filepath.c_str());
+        std::cerr << "Could not open file '%s'\n" << filepath.c_str() << std::endl;
         return 1;
     }
 
@@ -34,7 +34,7 @@ int fileinput(const std::string& filepath) {
         // TODO: think about how to handle empty lines: if allowed will be considered as instruction
         if (args.empty()) {
             rm.incCounter();
-            fprintf(stderr, "Empty line read: Will be treated as instruction.\n");
+            std::cerr << "Empty line read: Will be treated as instruction.\n";
             continue;
         }
 

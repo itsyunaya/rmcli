@@ -36,7 +36,7 @@ int interactive() {
 
         std::vector<std::string> args = splitString(line, ' ');
         if (args.size() > 2) {
-            fprintf(stderr, "Too many arguments\n");
+            std::cerr << "Too many arguments\n";
             args.clear();
         }
 

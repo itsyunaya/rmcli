@@ -10,6 +10,11 @@
 Registermachine rm;
 
 int main(const int argc, char *argv[]) {
+    // this apparently unlinks C and C++ streams, resulting in a performance increase as a side effect
+    // since im not using the C streams, it *should* not cause any issues
+    // incase it does, ill remove this again
+    std::ios_base::sync_with_stdio(false);
+
     const std::string ver = "1.0";
 
     int option;
@@ -47,14 +52,13 @@ int main(const int argc, char *argv[]) {
                     << "    -f, --fileinput <path>  use a file as input for the register machine\n"
                     << "    -h, --help              prints this help menu\n\n"
                     << "register machine commands: \n"
-                    // TODO: insert github link here
-                    << "    for a full list with explanations, please consult the documentation under [insert github link]\n";
+                    << "    for a full list with explanations, please consult the documentation under\n    https://github.com/itsyunaya/rmcli\n";
                 break;
             }
             // TODO: the exclusivity logic here is slop, replace it eventually
             case 'i': {
                 if (isFileInputMode) {
-                    fprintf(stderr, "Error: -i/--interactive and -f/--fileinput are mutually exclusive.\n");
+                    std::cerr << "Error: -i/--interactive and -f/--fileinput are mutually exclusive.\n";
                     return 1;
                 }
                 isInteractiveMode = true;
@@ -63,12 +67,12 @@ int main(const int argc, char *argv[]) {
 
             case 'f': {
                 if (isInteractiveMode) {
-                    fprintf(stderr, "Error: -f/--fileinput and -i/--interactive are mutually exclusive");
+                    std::cerr << "Error: -f/--fileinput and -i/--interactive are mutually exclusive";
                     return 1;
                 }
 
                 if (optarg == nullptr || std::strlen(optarg) == 0) {
-                    fprintf(stderr, "Error: -f/--file requires a non-empty filepath\n");
+                    std::cerr << "Error: -f/--file requires a non-empty filepath\n";
                     return 1;
                 }
 
