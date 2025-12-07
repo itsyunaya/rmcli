@@ -31,25 +31,25 @@ int interactive() {
         if (!line.empty()) add_history(raw);
         free(raw);
 
-        // TODO: add better exiting, add output registers command
+        // TODO: add better exiting
         if (line == "quit" || line == "exit") break;
 
         std::vector<std::string> args = splitString(line, ' ');
         if (args.size() > 2) {
-            std::cerr << "Too many arguments\n";
+            std::cerr << "Too many arguments" << std::endl;
             args.clear();
+            continue;
         }
 
-        int val{};
+        int val {-1};
 
-        // TODO: move input handling to a separate function maybe?
-        //  so i dont have to write it TWICE
         if (args.size() > 1) {
             try {
-                // TODO: if non-integer is entered stoi will silently fail and the function returns -1
-                //  this is ok for instructions without second arg, but can cause weird behaviour otherwise
                 val = std::stoi(args[1]);
-            } catch (const std::invalid_argument&) {} // catch by doing nothing here as to make commenting instructions easier
+            } catch (const std::invalid_argument&) {
+                std::cerr << "Invalid argument entered '" << args[1] << "'" << std::endl;
+                continue;
+            }
         }
 
         Registermachine::matchFunctions(args[0], val);

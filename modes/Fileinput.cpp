@@ -16,7 +16,7 @@ int fileinput(const std::string& filepath) {
     running = true;
     std::ifstream f(filepath);
     if (!f.is_open()) {
-        std::cerr << "Could not open file '%s'\n" << filepath.c_str() << std::endl;
+        std::cerr << "Could not open file '" << filepath.c_str() << "'" << std::endl;
         return 1;
     }
 
@@ -28,13 +28,13 @@ int fileinput(const std::string& filepath) {
 
     while (running) {
         std::vector<std::string> args = splitString(lines[rm.getCounter()], ' ');
-        int val = -1;
+        int val {-1};
 
         // empty line handling
         // TODO: think about how to handle empty lines: if allowed will be considered as instruction
         if (args.empty()) {
             rm.incCounter();
-            std::cerr << "Empty line read: Will be treated as instruction.\n";
+            std::cerr << "Empty line read: Will be treated as instruction." << std::endl;
             continue;
         }
 

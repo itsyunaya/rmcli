@@ -11,8 +11,9 @@
 #include <unordered_map>
 #include <tabulate/table.hpp>
 
+#include "util/Util.h"
+
 extern Registermachine rm;
-extern tabulate::Table rm_outputs;
 
 Registermachine::Registermachine()
     : registers(50, 0), acc(0), counter(0) {
@@ -172,8 +173,14 @@ void Registermachine::END() {
             rm_outputs[1].cell(i).set_text("undefined");
         }
     }
+    const std::string out = rm_outputs.str();
+    std::cout << out << std::endl;
 
-    std::cout << rm_outputs << std::endl;
+    // i need to regenerate the table upon every call of END, because otherwise it takes exponentially longer to process
+    // every time. i do not know why this is the case, but its probably something related to tabular
+    // this is awful and theres probably 10 billion better ways to do it, but this is the one that works rn so good enough
+    rm_outputs = tabulate::Table();
+    setupTable();
 
     resetRegistermachine();
 }
@@ -207,5 +214,9 @@ std::unordered_map<std::string, std::function<void(int)>> functionMap = {
 };
 
 void Registermachine::matchFunctions(const std::string& func, const int val) {
-    functionMap.at(func)(val);
+    try {
+        functionMap.at(func)(val);
+    } catch (...) {
+        std::cerr << "Unknown function '" << func << "'" << std::endl;
+    }
 }

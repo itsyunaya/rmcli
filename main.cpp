@@ -15,12 +15,12 @@ int main(const int argc, char *argv[]) {
     // incase it does, ill remove this again
     std::ios_base::sync_with_stdio(false);
 
-    const std::string ver = "1.0";
+    const std::string ver {"1.0"};
 
     int option;
-    bool isInteractiveMode = false;
-    bool isFileInputMode = false;
-    const char* filepath = nullptr;
+    bool isInteractiveMode {false};
+    bool isFileInputMode {false};
+    const char* filepath {nullptr};
 
     if (argv[1] == nullptr) {
         std::cout
@@ -49,14 +49,17 @@ int main(const int argc, char *argv[]) {
                     << "rmcli - CLI Register Machine [version " << ver << "]\n\n"
                     << "options: \n"
                     << "    -i, --interactive       execute the tool in interactive mode\n"
-                    << "    -f, --fileinput <path>  use a file as input for the register machine\n"
+                    << "    -f, --file <path>  use a file as input for the register machine\n"
                     << "    -h, --help              prints this help menu\n\n"
                     << "register machine commands: \n"
                     << "    for a full list with explanations, please consult the documentation under\n    https://github.com/itsyunaya/rmcli\n";
                 break;
             }
-            // TODO: the exclusivity logic here is slop, replace it eventually
+
             case 'i': {
+                // this never actually gets called, since order of expression evaluation leads to "-fi" interpreting the "i" as the filename
+                // said quirk does not occur when using the longname
+                // TODO: fix -fi
                 if (isFileInputMode) {
                     std::cerr << "Error: -i/--interactive and -f/--fileinput are mutually exclusive.\n";
                     return 1;
@@ -67,7 +70,7 @@ int main(const int argc, char *argv[]) {
 
             case 'f': {
                 if (isInteractiveMode) {
-                    std::cerr << "Error: -f/--fileinput and -i/--interactive are mutually exclusive";
+                    std::cerr << "Error: -f/--fileinput and -i/--interactive are mutually exclusive.";
                     return 1;
                 }
 
