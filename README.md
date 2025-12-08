@@ -3,8 +3,19 @@ rmcli  is a register machine simulator for the commandline, written in C++. For 
 has a basic featureset and can process instructions in two different modes,
 `interactive` and `fileinput`.
 
-## Installation
-[insert install instructions later]
+## Building
+1. Clone the repository and `cd` into it
+``` 
+git clone https://github.com/itsyunaya/rmcli.git
+cd rmcli 
+```
+2. Build the project
+``` 
+mkdir build && cd build
+cmake ..
+make
+```
+The executable will be located in `rmcli/build/bin`.
 
 ## Usage
 To use it, simply run `rmcli` in the terminal, with either the `-f` or the `-i` option,
