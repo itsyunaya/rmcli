@@ -42,7 +42,7 @@ int main(const int argc, char *argv[]) {
         {nullptr, 0, nullptr, 0}
     };
 
-    while ((option = getopt_long(argc, argv, "hif:d", long_options, nullptr)) != -1) {
+    while ((option = getopt_long(argc, argv, "hif:", long_options, nullptr)) != -1) {
         switch (option) {
             case 'h': {
                 std::cout
@@ -83,13 +83,6 @@ int main(const int argc, char *argv[]) {
                 filepath = optarg;
                 break;
             }
-
-            #ifdef DEBUG
-            case 'd': {
-                setupTable();
-                break;
-            }
-            #endif
 
             default: {
                 return 1;
