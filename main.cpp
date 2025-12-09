@@ -15,7 +15,7 @@ int main(const int argc, char *argv[]) {
     // incase it does, ill remove this again
     std::ios_base::sync_with_stdio(false);
 
-    const std::string ver {"1.0"};
+    constexpr std::string_view ver {"1.0"};
 
     int option;
     bool isInteractiveMode {false};

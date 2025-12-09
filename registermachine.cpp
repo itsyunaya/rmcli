@@ -161,7 +161,7 @@ void Registermachine::JLT(const int i) {
 }
 
 void Registermachine::END() {
-    running = false;
+    rmcli::g_running = false;
 
     rm_outputs[1].cell(0).set_text(std::to_string(acc));
 
@@ -213,11 +213,13 @@ std::unordered_map<std::string, std::function<void(int)>> functionMap = {
     {"END", [](int){ rm.END(); }},
 };
 
-void Registermachine::matchFunctions(const std::string& func, const int val) {
+// TODO: refactor this so checking if the syntax is valid is done in like an util function
+void Registermachine::matchFunctions(const std::string& func, const int val, const bool printErrLine) {
     try {
         functionMap.at(func)(val);
     } catch (...) {
         rm.incCounter();
-        std::cerr << rm.getCounter() << ": Unknown function '" << func << "', ignoring." << std::endl;
+        if (printErrLine) std::cerr << rm.getCounter() << ": ";
+        std::cerr << "Unknown function '" << func << "', ignoring." << std::endl;
     }
 }

@@ -17,7 +17,6 @@
 extern Registermachine rm;
 
 int interactive() {
-    // TODO: while true is terrible, eventually replace with "while reading line"
     while (true) {
         char* raw = readline("rmcli> ");
 
@@ -31,7 +30,6 @@ int interactive() {
         if (!line.empty()) add_history(raw);
         free(raw);
 
-        // TODO: add better exiting
         if (line == "quit" || line == "exit") break;
 
         std::vector<std::string> args = splitString(line, ' ');
@@ -52,7 +50,7 @@ int interactive() {
             }
         }
 
-        Registermachine::matchFunctions(args[0], val);
+        Registermachine::matchFunctions(args[0], val, false);
     }
 
     return 0;

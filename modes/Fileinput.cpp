@@ -13,7 +13,7 @@
 extern Registermachine rm;
 
 int fileinput(const std::string& filepath) {
-    running = true;
+    rmcli::g_running = true;
     std::ifstream f(filepath);
     if (!f.is_open()) {
         std::cerr << "Could not open file '" << filepath.c_str() << "'" << std::endl;
@@ -26,7 +26,7 @@ int fileinput(const std::string& filepath) {
         lines.push_back(s);
     }
 
-    while (running) {
+    while (rmcli::g_running) {
         std::vector<std::string> args = splitString(lines[rm.getCounter()], ' ');
         int val {};
 
@@ -47,7 +47,7 @@ int fileinput(const std::string& filepath) {
             }
         }
 
-        Registermachine::matchFunctions(args[0], val);
+        Registermachine::matchFunctions(args[0], val, true);
     }
 
     f.close();

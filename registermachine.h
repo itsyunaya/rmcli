@@ -9,7 +9,9 @@
 #include <string>
 #include <vector>
 
-inline bool running;
+namespace rmcli {
+    inline bool g_running;
+}
 
 class Registermachine {
 public:
@@ -43,7 +45,7 @@ public:
     void JLT(int i);
     void END();
 
-    static void matchFunctions(const std::string& func, int val);
+    static void matchFunctions(const std::string& func, int val, bool printErrLine);
 
 private:
     std::vector<int> registers;
