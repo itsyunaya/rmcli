@@ -32,3 +32,22 @@ int setupTable() {
     rm_outputs.add_row({});
     return 0;
 }
+
+void printTable(const int acc, const std::vector<int>& registers) {
+    rm_outputs[1].cell(0).set_text(std::to_string(acc));
+
+    for (int i = 1; i <= 10; i++) {
+        if (registers[i] != 0) {
+            std::string str = std::to_string(registers[i]);
+            rm_outputs[1].cell(i).set_text(str);
+        } else {
+            rm_outputs[1].cell(i).set_text("undefined");
+        }
+    }
+
+    const std::string out = rm_outputs.str();
+    std::cout << out << std::endl;
+
+    rm_outputs = tabulate::Table();
+    setupTable();
+}

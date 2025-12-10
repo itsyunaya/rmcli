@@ -6,6 +6,7 @@
 #ifndef REGISTERMACHINE_H
 #define REGISTERMACHINE_H
 
+#include <functional>
 #include <string>
 #include <vector>
 

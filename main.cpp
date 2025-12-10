@@ -10,6 +10,8 @@
 Registermachine rm;
 
 int main(const int argc, char *argv[]) {
+    // TODO: do extensive testing with debugger, to make sure that the tool does not memleak or something
+
     // this apparently unlinks C and C++ streams, resulting in a performance increase as a side effect
     // since im not using the C streams, it *should* not cause any issues
     // incase it does, ill remove this again
@@ -57,9 +59,7 @@ int main(const int argc, char *argv[]) {
             }
 
             case 'i': {
-                // this never actually gets called, since order of expression evaluation leads to "-fi" interpreting the "i" as the filename
-                // said quirk does not occur when using the longname
-                // TODO: fix -fi
+                // this only applies to cases where the longnanme is used, otherwise it just fails because it takes -fi as '--file i'
                 if (isFileInputMode) {
                     std::cerr << "Error: -i/--interactive and -f/--fileinput are mutually exclusive.\n";
                     return 1;

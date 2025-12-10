@@ -15,4 +15,6 @@ std::vector<std::string> splitString(const std::string& input, char delimiter);
 
 int setupTable();
 
+void printTable(int acc, const std::vector<int>& registers);
+
 #endif //RMCLI_UTIL_H
