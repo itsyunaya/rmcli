@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <readline/history.h>
 #include <readline/readline.h>
 
@@ -18,6 +19,8 @@ int fileInput(const std::string& filepath) {
     // bad :(
     const std::set<std::string> oneArgFuncs = {"END", "INC", "DEC"};
     rmcli::g_running = true;
+    int instrAmount {0};
+
     std::ifstream f(filepath);
     if (!f.is_open()) {
         std::cerr << "Could not open file '" << filepath.c_str() << "'" << std::endl;
@@ -60,14 +63,17 @@ int fileInput(const std::string& filepath) {
         }
 
         Registermachine::matchFunctions(args[0], val);
+        instrAmount++;
     }
 
     f.close();
+    std::cout << "Instructions needed: " << instrAmount << std::endl;
     return 0;
 }
 
 int interactiveInput() {
     // even fucking worse but im so, so eepy
+    // TODO: make less horrible
     const std::set<std::string> oneArgFuncs = {"END", "INC", "DEC"};
 
     while (true) {

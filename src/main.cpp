@@ -11,8 +11,6 @@ Registermachine rm;
 extern Registermachine getRegistermachine() { return rm; }
 
 int main(const int argc, char *argv[]) {
-    // TODO: do extensive testing with debugger, to make sure that the tool does not memleak or something
-
     // this apparently unlinks C and C++ streams, resulting in a performance increase as a side effect
     // since im not using the C streams, it *should* not cause any issues
     // incase it does, ill remove this again
