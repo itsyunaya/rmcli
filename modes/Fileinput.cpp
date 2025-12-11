@@ -5,6 +5,7 @@
 #include "Fileinput.h"
 
 #include <fstream>
+#include <set>
 #include <vector>
 
 #include "../registermachine.h"
@@ -13,6 +14,8 @@
 extern Registermachine rm;
 
 int fileinput(const std::string& filepath) {
+    std::set<std::string> oneArgFuncs = {"END", "INC", "DEC"};
+
     rmcli::g_running = true;
     std::ifstream f(filepath);
     if (!f.is_open()) {
@@ -33,21 +36,24 @@ int fileinput(const std::string& filepath) {
         // empty line handling
         if (args.empty()) {
             rm.incCounter();
-            std::cerr << rm.getCounter() << ": Empty line read, will be treated as instruction." << std::endl;
+            std::cerr << rm.getCounter() << ": Empty line read, will be treated as instruction" << std::endl;
             continue;
         }
 
-        if (args.size() > 1) {
+        if (args.size() > 1 && !oneArgFuncs.contains(args[0])) {
             try {
                 val = std::stoi(args[1]);
             } catch (const std::invalid_argument&) {
-                rm.incCounter();
-                std::cerr << rm.getCounter() << ": Invalid argument entered '" << args[1] << "', ignoring instruction." << std::endl;
-                continue;
+                std::cerr << rm.getCounter() + 1 << " | Fatal error: Invalid argument entered '" << args[1] << "'" << std::endl;
+                std::exit(1);
             }
+
+        } else if (!oneArgFuncs.contains(args[0])) {
+            std::cerr << rm.getCounter() + 1 << " | Fatal error: Function '" << args[0] << "' requires an argument, but wasn't provided one" << std::endl;
+            std::exit(1);
         }
 
-        Registermachine::matchFunctions(args[0], val, true);
+        Registermachine::matchFunctions(args[0], val, 0);
     }
 
     f.close();

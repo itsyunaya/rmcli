@@ -46,7 +46,7 @@ public:
     void JLT(int i);
     void END();
 
-    static void matchFunctions(const std::string& func, int val, bool printErrLine);
+    static void matchFunctions(const std::string &func, int val, int mode);
 
 private:
     std::vector<int> registers;

@@ -50,7 +50,7 @@ int interactive() {
             }
         }
 
-        Registermachine::matchFunctions(args[0], val, false);
+        Registermachine::matchFunctions(args[0], val, 1);
     }
 
     return 0;
