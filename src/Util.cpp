@@ -2,11 +2,13 @@
 // Created by ashley on 02.12.25.
 //
 
-#include "Util.h"
+#include "../include/Util.h"
 
 #include <sstream>
 #include <vector>
 #include <tabulate/table.hpp>
+
+#include "../include/registermachine.h"
 
 std::vector<std::string> splitString(const std::string& input, const char delimiter) {
     std::istringstream stream(input);

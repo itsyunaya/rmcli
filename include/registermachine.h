@@ -7,6 +7,7 @@
 #define REGISTERMACHINE_H
 
 #include <functional>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -46,7 +47,9 @@ public:
     void JLT(int i);
     void END();
 
-    static void matchFunctions(const std::string &func, int val, int mode);
+    static bool doesFunctionExist(const std::string &func);
+
+    static void matchFunctions(const std::string &func, int val);
 
 private:
     std::vector<int> registers;

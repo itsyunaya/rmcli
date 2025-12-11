@@ -3,15 +3,16 @@
 //
 
 // registermachine.cpp
-#include "registermachine.h"
+#include "../include/registermachine.h"
 
 #include <functional>
 #include <iostream>
+#include <set>
 #include <string>
 #include <unordered_map>
 #include <tabulate/table.hpp>
 
-#include "util/Util.h"
+#include "../include/Util.h"
 
 extern Registermachine rm;
 
@@ -217,31 +218,35 @@ std::unordered_map<std::string, std::function<void(int)>> functionMap = {
     {"END", [](int){ rm.END(); }},
 };
 
+bool Registermachine::doesFunctionExist(const std::string &func) {
+    return functionMap.contains(func);
+}
+
 // TODO: refactor this so checking if the syntax is valid is done in like an util function
-void Registermachine::matchFunctions(const std::string& func, const int val, const int mode) {
-    try {
+void Registermachine::matchFunctions(const std::string& func, const int val) {
+    //try {
         functionMap.at(func)(val);
-    } catch (...) {
-        // a switch statement might seem a little silly here, but i might add more modes later so it's fine
-        switch (mode) {
-            // file mode
-            case 0: {
-                std::cerr << rm.getCounter() + 1 << " | Fatal error: unknown function '" << func << "'" << std::endl;
-                std::exit(1);
-            }
-
-            // interactive mode
-            case 1: {
-                rm.incCounter();
-                std::cerr << "Unknown function '" << func << "', ignoring." << std::endl;
-                break;
-            }
-
-            // you shouldn't get to this point, what the fuck did you do
-            default: {
-                std::cout << "An unknown error occured";
-                std::exit(1);
-            }
-        }
-    }
+    // } catch (...) {
+    //     // a switch statement might seem a little silly here, but i might add more modes later so it's fine
+    //     switch (mode) {
+    //         // file mode
+    //         case 0: {
+    //             std::cerr << rm.getCounter() + 1 << " | Fatal error: unknown function '" << func << "'" << std::endl;
+    //             std::exit(1);
+    //         }
+    //
+    //         // interactive mode
+    //         case 1: {
+    //             rm.incCounter();
+    //             std::cerr << "Unknown function '" << func << "', ignoring." << std::endl;
+    //             break;
+    //         }
+    //
+    //         // you shouldn't get to this point, what the fuck did you do
+    //         default: {
+    //             std::cout << "An unknown error occured";
+    //             std::exit(1);
+    //         }
+    //     }
+    // }
 }

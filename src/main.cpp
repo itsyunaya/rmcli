@@ -2,12 +2,13 @@
 #include <getopt.h>
 #include <iostream>
 
-#include "registermachine.h"
-#include "modes/Fileinput.h"
-#include "modes/InteractiveMode.h"
-#include "util/Util.h"
+#include "../include/registermachine.h"
+#include "../include/InputLogic.h"
+#include "../include/Util.h"
 
 Registermachine rm;
+
+extern Registermachine getRegistermachine() { return rm; }
 
 int main(const int argc, char *argv[]) {
     // TODO: do extensive testing with debugger, to make sure that the tool does not memleak or something
@@ -17,7 +18,7 @@ int main(const int argc, char *argv[]) {
     // incase it does, ill remove this again
     std::ios_base::sync_with_stdio(false);
 
-    constexpr std::string_view ver {"1.0"};
+    constexpr std::string_view ver {"1.1.0"};
 
     int option;
     bool isInteractiveMode {false};
@@ -91,9 +92,9 @@ int main(const int argc, char *argv[]) {
     }
 
     if (isInteractiveMode) {
-        interactive();
+        interactiveInput();
     } else if (isFileInputMode) {
-        fileinput(filepath);
+        fileInput(filepath);
     }
 
     return 0;
