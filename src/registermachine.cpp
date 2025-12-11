@@ -6,8 +6,6 @@
 #include "../include/registermachine.h"
 
 #include <functional>
-#include <iostream>
-#include <set>
 #include <string>
 #include <unordered_map>
 #include <tabulate/table.hpp>
@@ -165,25 +163,6 @@ void Registermachine::JLT(const int i) {
 
 void Registermachine::END() {
     rmcli::g_running = false;
-
-    /*rm_outputs[1].cell(0).set_text(std::to_string(acc));
-
-    for (int i = 1; i <= 10; i++) {
-        if (registers[i] != 0) {
-            std::string str = std::to_string(registers[i]);
-            rm_outputs[1].cell(i).set_text(str);
-        } else {
-            rm_outputs[1].cell(i).set_text("undefined");
-        }
-    }
-    const std::string out = rm_outputs.str();
-    std::cout << out << std::endl;
-
-    // i need to regenerate the table upon every call of END, because otherwise it takes exponentially longer to process
-    // every time. i do not know why this is the case, but its probably something related to tabular
-    // this is awful and theres probably 10 billion better ways to do it, but this is the one that works rn so good enough
-    rm_outputs = tabulate::Table();
-    setupTable();*/
 
     printTable(acc, registers);
 
