@@ -48,8 +48,7 @@ void printTable(const int acc, const std::vector<int>& registers) {
         }
     }
 
-    const std::string out = rm_outputs.str();
-    std::cout << out << std::endl;
+    std::cout << rm_outputs.str() << std::endl;
 
     rm_outputs = tabulate::Table();
     setupTable();
