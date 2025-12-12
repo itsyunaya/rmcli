@@ -19,6 +19,7 @@ public:
 
     [[nodiscard]] int getAcc() const;
     [[nodiscard]] int getCounter() const;
+    std::vector<int> getRegisters();
     void incCounter();
 
     int resetRegistermachine();

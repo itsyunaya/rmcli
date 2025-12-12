@@ -111,6 +111,11 @@ int interactiveInput() {
 
         if (line == "quit" || line == "exit") break;
 
+        if (line == "pt") {
+            printTable(rm.getAcc(), rm.getRegisters());
+            continue;
+        }
+
         std::vector<std::string> args = splitString(line, ' ');
         int val{};
 

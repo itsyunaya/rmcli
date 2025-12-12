@@ -18,6 +18,10 @@ Registermachine::Registermachine()
     : registers(50, 0), acc(0), counter(0) {
 }
 
+std::vector<int> Registermachine::getRegisters() {
+    return registers;
+}
+
 int Registermachine::getAcc() const {
     return acc;
 }
@@ -158,8 +162,6 @@ void Registermachine::JLT(const int i) {
         counter++;
     }
 }
-
-// TODO: let user execute printTable() in interactive mode
 
 void Registermachine::END() {
     rmcli::g_running = false;
