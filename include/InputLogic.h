@@ -6,7 +6,7 @@
 #define RMCLI_INPUTLOGIC_H
 #include <string>
 
-int fileInput(const std::string& filepath);
+int fileInput(const std::string& filepath, bool showTable);
 int interactiveInput();
 
 #endif //RMCLI_INPUTLOGIC_H

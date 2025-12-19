@@ -21,6 +21,7 @@ int main(const int argc, char *argv[]) {
     int option;
     bool isInteractiveMode {false};
     bool isFileInputMode {false};
+    bool isShowtable {false};
     const char* filepath {nullptr};
 
     if (argv[1] == nullptr) {
@@ -38,19 +39,20 @@ int main(const int argc, char *argv[]) {
     constexpr struct option long_options[] = {
         {"help", no_argument, nullptr, 'h'},
         {"interactive", no_argument, nullptr, 'i'},
+        {"showtable", no_argument, nullptr, 's'},
         {"file", required_argument, nullptr, 'f'},
-        {"debug", no_argument, nullptr, 'd'},
         {nullptr, 0, nullptr, 0}
     };
 
-    while ((option = getopt_long(argc, argv, "hif:", long_options, nullptr)) != -1) {
+    while ((option = getopt_long(argc, argv, "hisf:", long_options, nullptr)) != -1) {
         switch (option) {
             case 'h': {
                 std::cout
                     << "rmcli - CLI Register Machine [version " << ver << "]\n\n"
                     << "options: \n"
                     << "    -i, --interactive       execute the tool in interactive mode\n"
-                    << "    -f, --file <path>  use a file as input for the register machine\n"
+                    << "    -s, --showtable         prints register table upon every instruction\n"
+                    << "    -f, --file <path>       use a file as input for the register machine\n"
                     << "    -h, --help              prints this help menu\n\n"
                     << "register machine commands: \n"
                     << "    for a full list with explanations, please consult the documentation under\n    https://github.com/itsyunaya/rmcli\n";
@@ -60,7 +62,7 @@ int main(const int argc, char *argv[]) {
             case 'i': {
                 // this only applies to cases where the longnanme is used, otherwise it just fails because it takes -fi as '--file i'
                 if (isFileInputMode) {
-                    std::cerr << "Error: -i/--interactive and -f/--fileinput are mutually exclusive.\n";
+                    std::cerr << "Error: -i/--interactive and -f/--fileinput are mutually exclusive" << std::endl;
                     return 1;
                 }
                 isInteractiveMode = true;
@@ -69,17 +71,22 @@ int main(const int argc, char *argv[]) {
 
             case 'f': {
                 if (isInteractiveMode) {
-                    std::cerr << "Error: -f/--fileinput and -i/--interactive are mutually exclusive.";
+                    std::cerr << "Error: -f/--fileinput and -i/--interactive are mutually exclusive" << std::endl;
                     return 1;
                 }
 
                 if (optarg == nullptr || std::strlen(optarg) == 0) {
-                    std::cerr << "Error: -f/--file requires a non-empty filepath\n";
+                    std::cerr << "Error: -f/--file requires a non-empty filepath" << std::endl;
                     return 1;
                 }
 
                 isFileInputMode = true;
                 filepath = optarg;
+                break;
+            }
+
+            case 's': {
+                isShowtable = true;
                 break;
             }
 
@@ -90,9 +97,18 @@ int main(const int argc, char *argv[]) {
     }
 
     if (isInteractiveMode) {
+        if (isShowtable) {
+            std::cerr << "Error: can only use -s/--showtable in conjunction with file input mode" << std::endl;
+            return 1;
+        }
+
         interactiveInput();
     } else if (isFileInputMode) {
-        fileInput(filepath);
+        if (isShowtable) {
+            fileInput(filepath, true);
+        } else {
+            fileInput(filepath, false);
+        }
     }
 
     return 0;

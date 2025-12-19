@@ -26,9 +26,10 @@ bool canIntBeNegative(const std::string &func) {
     return true;
 }
 
-int fileInput(const std::string &filepath) {
+int fileInput(const std::string &filepath, bool showTable) {
     rmcli::g_running = true;
-    int instrAmount{0};
+    int instrAmount {0};
+    bool st = showTable;
 
     std::ifstream f(filepath);
     if (!f.is_open()) {
@@ -84,6 +85,14 @@ int fileInput(const std::string &filepath) {
             std::cerr << rm.getCounter() + 1 << " | Fatal error: function '" << args[0] <<
                     "' cannot have a negative argument" << std::endl;
             std::exit(1);
+        }
+
+        if (st) {
+            if (args[0] == "END") {
+                st = false;
+            } else {
+                printTable(rm.getAcc(), rm.getRegisters());
+            }
         }
 
         Registermachine::matchFunctions(args[0], val);
